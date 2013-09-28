@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<title>test</title>
+		<script type="text/javascript" src="../src/minitemplate.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var data = [
+				{
+					name:'ouxingzhi',
+					age:26
+				},
+				{
+					name:'zhansan',
+					age:22
+				},
+				{
+					name:'idieee',
+					age:23
+				}
+			];
+			var str = [
+				'<%for(var i=0;i<data.length;i++){%>',
+					'<div>',
+					'<h4>name:<%=data[i].name%></h4>',
+					'<strong>age:<%=data[i].age%></strong>',
+					'</div>',
+				'<%}%>'
+			].join('');
+			var temp = miniTemplate(str);
+			console.log(temp({data:data}));
+		</script>
+	</body>
+</html>
