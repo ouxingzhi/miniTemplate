@@ -23,6 +23,7 @@ var miniTemplate = function(tpl,opts){
 		removeTag = new RegExp(lefttag+"|"+righttag,'mg');
 	var lines = tpl.split(nreg),i = 0;
 	var _js_ = ['var '+varname + ' = [];'];
+	_js_.push('with(obj){');
 	 tpl.replace(reg,function(a,b){
 		i++;
 		_js_.push(varname + '.push("' + lines[i-1] + '");')
@@ -39,15 +40,11 @@ var miniTemplate = function(tpl,opts){
 		_js_.push(varname + '.push("' + tpl + '");')
 	}
 	_js_.push('return '+varname+'.join("");');
+	_js_.push('}')
 	_js_ = _js_.join('');
+	var render = new Function('obj',_js_);
 	return function(data){
 		data = data || {};
-		var vars = [],vals=[];
-		for(var i in data){
-			vars.push(i);
-			vals.push(data[i]);
-		} 
-		vars.push(_js_);
-		return Function.apply(null,vars).apply(null,vals);
+		return render(data);
 	}
 };

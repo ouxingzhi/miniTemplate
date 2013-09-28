@@ -3,9 +3,12 @@
 	<head>
 		<title>test</title>
 		<script type="text/javascript" src="../src/minitemplate.js"></script>
+		<script type="text/javascript" src="./underscore.js"></script>
 	</head>
 	<body>
-		<div id="box"></div>
+		<h3>speed test</h3>
+		<div id="minitemplate"></div>
+		<div id="underscore"></div>
 		<script type="text/javascript">
 			var data = [
 				{
@@ -14,7 +17,7 @@
 				},
 				{
 					name:'zhansan',
-					age:22
+						age:22
 				},
 				{
 					name:'idieee',
@@ -30,9 +33,20 @@
 				'<%}%>'
 			].join('');
 			var tpl = miniTemplate(str),html;
-			var box = document.getElementById('box');
-			html = tpl({data:data});
-			box.innerHTML = html;
+			var tpl2 = _.template(str);
+			var minitemplate = document.getElementById('minitemplate'),
+				underscore = document.getElementById('underscore'),
+				start = new Date;
+			
+			for(var i=0;i<1000;i++){
+				html = tpl({data:data});
+			}
+			minitemplate.innerHTML =  '<br/>minitemplate: ' + (new Date - start);
+			start = new Date;
+			for(var i=0;i<1000;i++){
+				html = tpl({data:data});
+			}
+			underscore.innerHTML = '<br />underscore: _.template: ' + (new Date - start); 
 		</script>
 	</body>
 </html>
