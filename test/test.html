@@ -5,6 +5,7 @@
 		<script type="text/javascript" src="../src/minitemplate.js"></script>
 	</head>
 	<body>
+		<div id="box"></div>
 		<script type="text/javascript">
 			var data = [
 				{
@@ -28,8 +29,10 @@
 					'</div>',
 				'<%}%>'
 			].join('');
-			var temp = miniTemplate(str);
-			console.log(temp({data:data}));
+			var tpl = miniTemplate(str),html;
+			var box = document.getElementById('box');
+			html = tpl({data:data});
+			box.innerHTML = html;
 		</script>
 	</body>
 </html>
